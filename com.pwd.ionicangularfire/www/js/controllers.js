@@ -1,6 +1,30 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashCtrl', function($scope) {
+})
+
+.controller('ProductsCtrl', function($firebaseArray){
+  var products = this;
+  products.catalog = [];
+  var ref = firebase.database().ref().child('products');
+
+  $firebaseArray(ref).$loaded().then(
+    function(results){
+      products.catalog = results;
+    }, function(error){
+      console.error(error);
+      alert(error);
+    }
+  );
+
+})
+
+
+
+
+
+
+
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
